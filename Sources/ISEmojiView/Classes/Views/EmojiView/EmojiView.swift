@@ -142,7 +142,6 @@ final public class EmojiView: UIView {
         } else {
             bottomConstraint?.constant = 0
         }
-        
     }
     
     override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -364,8 +363,5 @@ extension EmojiView {
         addConstraint(bottomConstraint)
         
         self.bottomConstraint = bottomConstraint
-		 self.setNeedsLayout()
-		 self.layoutIfNeeded()
     }
-    
 }

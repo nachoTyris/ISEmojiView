@@ -30,7 +30,8 @@ final internal class CategoriesBottomView: UIView {
             }
             
             changeKeyboardButton.isHidden = !showAbcButton
-//            collectionViewToSuperViewLeadingConstraint.priority = showAbcButton ? .defaultHigh : .defaultLow
+
+			  self.setNeedsLayout()
         }
     }
     
@@ -41,11 +42,12 @@ final internal class CategoriesBottomView: UIView {
             if let selectedItems = collectionView.indexPathsForSelectedItems, selectedItems.isEmpty {
                 selectFirstCell()
             }
+			  
+			  self.setNeedsLayout()
         }
     }
     
     // MARK: - IBOutlets
-    
     @IBOutlet private weak var changeKeyboardButton: UIButton!
     @IBOutlet private weak var deleteButton: UIButton! {
         didSet {
@@ -60,10 +62,6 @@ final internal class CategoriesBottomView: UIView {
         }
     }
     
-//    @IBOutlet private var collectionViewToSuperViewLeadingConstraint: NSLayoutConstraint!
-//    
-//    @IBOutlet private weak var collecitonViewToSuperViewTrailingConstraint: NSLayoutConstraint!
-
     // MARK: - Init functions
     
     static internal func loadFromNib(with categories: [Category], needToShowAbcButton: Bool, needToShowDeleteButton: Bool) -> CategoriesBottomView {
@@ -80,16 +78,13 @@ final internal class CategoriesBottomView: UIView {
         bottomView.categories = categories
         bottomView.changeKeyboardButton.isHidden = !needToShowAbcButton
         bottomView.deleteButton.isHidden = !needToShowDeleteButton
-        
-//        if needToShowAbcButton {
-//            bottomView.collectionViewToSuperViewLeadingConstraint.priority = .defaultHigh
-//        }
-//
-//        if !needToShowDeleteButton {
-//          bottomView.collecitonViewToSuperViewTrailingConstraint.priority = .defaultHigh
-//        }
 
         bottomView.selectFirstCell()
+		 
+		 // MARK: Here be dragons
+		 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+			 bottomView.setNeedsLayout()
+		 }
 		 
         return bottomView
     }
@@ -137,6 +132,8 @@ final internal class CategoriesBottomView: UIView {
         
         let indexPath = IndexPath(item: item, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+		 
+		 self.setNeedsLayout()
     }
     
     // MARK: - IBActions
