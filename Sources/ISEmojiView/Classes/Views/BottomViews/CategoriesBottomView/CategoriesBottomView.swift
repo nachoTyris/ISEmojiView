@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-private let MinCellSize = CGFloat(35)
+private let MinCellSize = CGFloat(40)
 
 internal protocol CategoriesBottomViewDelegate: AnyObject {
     
@@ -30,7 +30,7 @@ final internal class CategoriesBottomView: UIView {
             }
             
             changeKeyboardButton.isHidden = !showAbcButton
-            collectionViewToSuperViewLeadingConstraint.priority = showAbcButton ? .defaultHigh : .defaultLow
+//            collectionViewToSuperViewLeadingConstraint.priority = showAbcButton ? .defaultHigh : .defaultLow
         }
     }
     
@@ -60,9 +60,9 @@ final internal class CategoriesBottomView: UIView {
         }
     }
     
-    @IBOutlet private var collectionViewToSuperViewLeadingConstraint: NSLayoutConstraint!
-    
-    @IBOutlet private weak var collecitonViewToSuperViewTrailingConstraint: NSLayoutConstraint!
+//    @IBOutlet private var collectionViewToSuperViewLeadingConstraint: NSLayoutConstraint!
+//    
+//    @IBOutlet private weak var collecitonViewToSuperViewTrailingConstraint: NSLayoutConstraint!
 
     // MARK: - Init functions
     
@@ -81,16 +81,16 @@ final internal class CategoriesBottomView: UIView {
         bottomView.changeKeyboardButton.isHidden = !needToShowAbcButton
         bottomView.deleteButton.isHidden = !needToShowDeleteButton
         
-        if needToShowAbcButton {
-            bottomView.collectionViewToSuperViewLeadingConstraint.priority = .defaultHigh
-        }
-
-        if !needToShowDeleteButton {
-          bottomView.collecitonViewToSuperViewTrailingConstraint.priority = .defaultHigh
-        }
+//        if needToShowAbcButton {
+//            bottomView.collectionViewToSuperViewLeadingConstraint.priority = .defaultHigh
+//        }
+//
+//        if !needToShowDeleteButton {
+//          bottomView.collecitonViewToSuperViewTrailingConstraint.priority = .defaultHigh
+//        }
 
         bottomView.selectFirstCell()
-        
+		 
         return bottomView
     }
     
@@ -110,7 +110,9 @@ final internal class CategoriesBottomView: UIView {
             
             layout.itemSize = size
             collectionView.collectionViewLayout.invalidateLayout()
+			  
         }
+		 NSLog("$$$: \(collectionView.bounds.width)")
     }
     
     // MARK: - Internal functions

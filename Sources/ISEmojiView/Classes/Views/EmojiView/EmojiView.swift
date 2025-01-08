@@ -225,6 +225,7 @@ extension EmojiView {
         setupEmojiCollectionView()
         setupBottomContainerView()
         setupConstraints()
+		 self.setNeedsLayout()
     }
     
     private func setupEmojiCollectionView() {
@@ -363,6 +364,8 @@ extension EmojiView {
         addConstraint(bottomConstraint)
         
         self.bottomConstraint = bottomConstraint
+		 self.setNeedsLayout()
+		 self.layoutIfNeeded()
     }
     
 }
